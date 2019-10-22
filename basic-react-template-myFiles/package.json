@@ -7,10 +7,8 @@
   "author": "jagadish594 <jagadish594@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "css-loader": "^3.2.0",
     "react": "^16.10.2",
-    "react-dom": "^16.10.2",
-    "style-loader": "^1.0.0"
+    "react-dom": "^16.10.2"
   },
   "devDependencies": {
     "@babel/core": "^7.6.4",
