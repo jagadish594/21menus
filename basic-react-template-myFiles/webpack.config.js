@@ -20,6 +20,11 @@ module.exports = {
                         loader: "html-loader"
                     }
                 ]
+            },
+            //Add CSS loader
+            {
+                test: /\.css$/,
+                use: ['style-loader','css-loader']
             }
             
         ]
