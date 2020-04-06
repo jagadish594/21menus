@@ -1,0 +1,1 @@
+{"version":3,"file":"static/webpack/static\\development\\pages\\contact.js.210b154d0f6c5f8a6b21.hot-update.js","sources":["webpack:///./pages/contact.js"],"sourcesContent":["\r\n\r\nconst Contact = () =><h2>Contact Us page</h2>\r\n\r\nexport default Contact;"],"mappings":";;;;;;;;;;;;;;;;;;;AAEA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AACA;AACA;;;;A","sourceRoot":""}
