@@ -1912,28 +1912,106 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _components_Layout__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components/Layout */ "./components/Layout.js");
+/* harmony import */ var isomorphic_unfetch__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! isomorphic-unfetch */ "isomorphic-unfetch");
+/* harmony import */ var isomorphic_unfetch__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(isomorphic_unfetch__WEBPACK_IMPORTED_MODULE_2__);
 var _jsxFileName = "C:\\myReact-Redux\\21Menus\\21menus\\pages\\index.js";
 
 var __jsx = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement;
 
 
+
+
 const Index = props => {
+  const {
+    0: data,
+    1: setFetchData
+  } = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(""); //const {totalHits, currentPage, totalPages, foods} = props.data || "";
+
+  const {
+    0: inputQuery,
+    1: setInputQuery
+  } = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])("");
+  const {
+    0: isSearch,
+    1: setSearch
+  } = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(false);
+  const inputRef = Object(react__WEBPACK_IMPORTED_MODULE_0__["useRef"])(null);
+  Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(() => {
+    const fetchData = async () => {
+      const URL = `https://api.nal.usda.gov/fdc/v1/foods/search?api_key=GiSVQi6vc4bkITDFpqevACfryGTKgtKeRaE6FR98&query=${inputQuery}`;
+      const resp = await isomorphic_unfetch__WEBPACK_IMPORTED_MODULE_2___default()(URL);
+      const jsonData = await resp.json();
+      setFetchData(jsonData);
+      setSearch(false);
+    };
+
+    if (isSearch) {
+      fetchData();
+    }
+  }, [isSearch]);
+
+  const handleSearchClick = () => {
+    setSearch(true);
+  };
+
   return __jsx(_components_Layout__WEBPACK_IMPORTED_MODULE_1__["default"], {
     __self: undefined,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 4,
+      lineNumber: 29,
       columnNumber: 14
     }
   }, __jsx("h1", {
     __self: undefined,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 5,
+      lineNumber: 30,
       columnNumber: 9
     }
-  }, "Hello 21Menus"));
-};
+  }, "Hello 21Menus"), __jsx("input", {
+    type: "text",
+    value: inputQuery,
+    ref: inputRef,
+    onChange: () => setInputQuery(inputRef.current.value),
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 32,
+      columnNumber: 9
+    }
+  }), __jsx("button", {
+    onClick: handleSearchClick,
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 33,
+      columnNumber: 9
+    }
+  }, "Search"), __jsx("ul", {
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 34,
+      columnNumber: 9
+    }
+  }, data.foods && data.foods.map(food => __jsx("li", {
+    key: food.fdcId,
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 36,
+      columnNumber: 49
+    }
+  }, food.fdcId, " - ", food.brandOwner))));
+}; // Index.getInitialProps = async () => {
+//     const URL = `https://api.nal.usda.gov/fdc/v1/foods/search?api_key=GiSVQi6vc4bkITDFpqevACfryGTKgtKeRaE6FR98&query=Cheddar%20Cheese`;
+//     const response = await fetch(URL);
+//     const data = await response.json();
+//     return {
+//         data: data
+//     }
+// }
+
 
 /* harmony default export */ __webpack_exports__["default"] = (Index);
 
@@ -1948,6 +2026,17 @@ const Index = props => {
 
 module.exports = __webpack_require__(/*! C:\myReact-Redux\21Menus\21menus\pages\index.js */"./pages/index.js");
 
+
+/***/ }),
+
+/***/ "isomorphic-unfetch":
+/*!*************************************!*\
+  !*** external "isomorphic-unfetch" ***!
+  \*************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = require("isomorphic-unfetch");
 
 /***/ }),
 
