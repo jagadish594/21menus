@@ -88,10 +88,115 @@ module.exports =
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 3);
+/******/ 	return __webpack_require__(__webpack_require__.s = 4);
 /******/ })
 /************************************************************************/
 /******/ ({
+
+/***/ "./components/Display.js":
+/*!*******************************!*\
+  !*** ./components/Display.js ***!
+  \*******************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var next_link__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! next/link */ "./node_modules/next/link.js");
+/* harmony import */ var next_link__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(next_link__WEBPACK_IMPORTED_MODULE_1__);
+var _jsxFileName = "C:\\myReact-Redux\\21Menus\\21menus\\components\\Display.js";
+
+var __jsx = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement;
+
+
+const Display = props => {
+  return __jsx("ul", {
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 5,
+      columnNumber: 9
+    }
+  }, props.data.foods && props.data.foods.map(food => __jsx("li", {
+    key: food.fdcId,
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 7,
+      columnNumber: 17
+    }
+  }, __jsx(next_link__WEBPACK_IMPORTED_MODULE_1___default.a, {
+    href: "/p/[id]",
+    as: `/p/${food.fdcId}`,
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 8,
+      columnNumber: 17
+    }
+  }, __jsx("a", {
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 9,
+      columnNumber: 21
+    }
+  }, food.fdcId, " - ", food.brandOwner)))));
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Display);
+
+/***/ }),
+
+/***/ "./components/InputSearch.js":
+/*!***********************************!*\
+  !*** ./components/InputSearch.js ***!
+  \***********************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+var _jsxFileName = "C:\\myReact-Redux\\21Menus\\21menus\\components\\InputSearch.js";
+
+var __jsx = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement;
+
+const InputSearch = props => {
+  return __jsx("div", {
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 4,
+      columnNumber: 9
+    }
+  }, __jsx("input", {
+    type: "text",
+    value: props.inputQuery,
+    onChange: props.handleInput,
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 5,
+      columnNumber: 13
+    }
+  }), __jsx("button", {
+    onClick: props.handleSearchButton,
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 10,
+      columnNumber: 13
+    }
+  }, "Search"));
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (InputSearch);
+
+/***/ }),
 
 /***/ "./components/Layout.js":
 /*!******************************!*\
@@ -1900,6 +2005,98 @@ module.exports = __webpack_require__(/*! ./dist/client/link */ "./node_modules/n
 
 /***/ }),
 
+/***/ "./pages/FoodSearch.js":
+/*!*****************************!*\
+  !*** ./pages/FoodSearch.js ***!
+  \*****************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _components_Layout__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components/Layout */ "./components/Layout.js");
+/* harmony import */ var isomorphic_unfetch__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! isomorphic-unfetch */ "isomorphic-unfetch");
+/* harmony import */ var isomorphic_unfetch__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(isomorphic_unfetch__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _components_InputSearch__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../components/InputSearch */ "./components/InputSearch.js");
+/* harmony import */ var _components_Display__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../components/Display */ "./components/Display.js");
+var _jsxFileName = "C:\\myReact-Redux\\21Menus\\21menus\\pages\\FoodSearch.js";
+
+var __jsx = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement;
+
+
+
+
+
+
+const FoodSearch = () => {
+  const {
+    0: data,
+    1: setFetchData
+  } = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])("");
+  const {
+    0: inputQuery,
+    1: setInputQuery
+  } = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])("");
+  const {
+    0: isSearch,
+    1: setSearch
+  } = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(false);
+  Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(() => {
+    const fetchData = async () => {
+      const searchURL = `https://api.nal.usda.gov/fdc/v1/foods/search?api_key=GiSVQi6vc4bkITDFpqevACfryGTKgtKeRaE6FR98&query=${inputQuery}`;
+      const resp = await isomorphic_unfetch__WEBPACK_IMPORTED_MODULE_2___default()(searchURL);
+      const jsonData = await resp.json();
+      setFetchData(jsonData);
+      setSearch(false);
+    };
+
+    if (isSearch) {
+      fetchData();
+    }
+  }, [isSearch]);
+
+  const handleInput = event => {
+    setInputQuery(event.target.value);
+  };
+
+  const handleSearchButton = () => {
+    setSearch(true);
+  };
+
+  return __jsx(_components_Layout__WEBPACK_IMPORTED_MODULE_1__["default"], {
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 34,
+      columnNumber: 5
+    }
+  }, __jsx(_components_InputSearch__WEBPACK_IMPORTED_MODULE_3__["default"], {
+    inputQuery: inputQuery,
+    handleInput: handleInput,
+    handleSearchButton: handleSearchButton,
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 35,
+      columnNumber: 7
+    }
+  }), __jsx(_components_Display__WEBPACK_IMPORTED_MODULE_4__["default"], {
+    data: data,
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 40,
+      columnNumber: 7
+    }
+  }));
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (FoodSearch);
+
+/***/ }),
+
 /***/ "./pages/index.js":
 /*!************************!*\
   !*** ./pages/index.js ***!
@@ -1911,113 +2108,93 @@ module.exports = __webpack_require__(/*! ./dist/client/link */ "./node_modules/n
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _components_Layout__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components/Layout */ "./components/Layout.js");
-/* harmony import */ var isomorphic_unfetch__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! isomorphic-unfetch */ "isomorphic-unfetch");
-/* harmony import */ var isomorphic_unfetch__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(isomorphic_unfetch__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _FoodSearch__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./FoodSearch */ "./pages/FoodSearch.js");
 var _jsxFileName = "C:\\myReact-Redux\\21Menus\\21menus\\pages\\index.js";
 
 var __jsx = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement;
 
 
-
-
-const Index = props => {
-  const {
-    0: data,
-    1: setFetchData
-  } = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(""); //const {totalHits, currentPage, totalPages, foods} = props.data || "";
-
-  const {
-    0: inputQuery,
-    1: setInputQuery
-  } = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])("");
-  const {
-    0: isSearch,
-    1: setSearch
-  } = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(false);
-  const inputRef = Object(react__WEBPACK_IMPORTED_MODULE_0__["useRef"])(null);
-  Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(() => {
-    const fetchData = async () => {
-      const URL = `https://api.nal.usda.gov/fdc/v1/foods/search?api_key=GiSVQi6vc4bkITDFpqevACfryGTKgtKeRaE6FR98&query=${inputQuery}`;
-      const resp = await isomorphic_unfetch__WEBPACK_IMPORTED_MODULE_2___default()(URL);
-      const jsonData = await resp.json();
-      setFetchData(jsonData);
-      setSearch(false);
-    };
-
-    if (isSearch) {
-      fetchData();
-    }
-  }, [isSearch]);
-
-  const handleSearchClick = () => {
-    setSearch(true);
-  };
-
-  return __jsx(_components_Layout__WEBPACK_IMPORTED_MODULE_1__["default"], {
+const Index = () => {
+  return __jsx("div", {
     __self: undefined,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 29,
-      columnNumber: 14
+      lineNumber: 5,
+      columnNumber: 5
     }
-  }, __jsx("h1", {
+  }, __jsx(_FoodSearch__WEBPACK_IMPORTED_MODULE_1__["default"], {
     __self: undefined,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 30,
-      columnNumber: 9
+      lineNumber: 6,
+      columnNumber: 7
     }
-  }, "Hello 21Menus"), __jsx("input", {
-    type: "text",
-    value: inputQuery,
-    ref: inputRef,
-    onChange: () => setInputQuery(inputRef.current.value),
-    __self: undefined,
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 32,
-      columnNumber: 9
-    }
-  }), __jsx("button", {
-    onClick: handleSearchClick,
-    __self: undefined,
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 33,
-      columnNumber: 9
-    }
-  }, "Search"), __jsx("ul", {
-    __self: undefined,
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 34,
-      columnNumber: 9
-    }
-  }, data.foods && data.foods.map(food => __jsx("li", {
-    key: food.fdcId,
-    __self: undefined,
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 36,
-      columnNumber: 49
-    }
-  }, food.fdcId, " - ", food.brandOwner))));
-}; // Index.getInitialProps = async () => {
-//     const URL = `https://api.nal.usda.gov/fdc/v1/foods/search?api_key=GiSVQi6vc4bkITDFpqevACfryGTKgtKeRaE6FR98&query=Cheddar%20Cheese`;
-//     const response = await fetch(URL);
-//     const data = await response.json();
-//     return {
-//         data: data
+  }));
+}; // import Layout from "../components/Layout";
+// import fetch from "isomorphic-unfetch";
+// import { useState, useEffect } from "react";
+// import Link from "next/link";
+// import FoodDetails from "./p/[id]";
+// const Index = (props) => {
+//   const { foods } = props.data; //Only  for reference
+//   console.log("foods: ", foods); //only for reference
+//   const [data, setFetchData] = useState("");
+//   //const {totalHits, currentPage, totalPages, foods} = props.data || "";
+//   const [inputQuery, setInputQuery] = useState("");
+//   const [isSearch, setSearch] = useState(false);
+//   useEffect(() => {
+//     const fetchData = async () => {
+//       const searchURL = `https://api.nal.usda.gov/fdc/v1/foods/search?api_key=GiSVQi6vc4bkITDFpqevACfryGTKgtKeRaE6FR98&query=${inputQuery}`;
+//       const resp = await fetch(searchURL);
+//       const jsonData = await resp.json();
+//       setFetchData(jsonData);
+//       setSearch(false);
+//     };
+//     if (isSearch) {
+//       fetchData();
 //     }
-// }
+//   }, [isSearch]);
+//   return (
+//     <Layout>
+//       <h1>Hello 21Menus</h1>
+//       <input
+//         type="text"
+//         value={inputQuery}
+//         onChange={(event) => setInputQuery(event.target.value)}
+//       />
+//       <button onClick={() => setSearch(true)}>Search</button>
+//       <ul>
+//         {data.foods &&
+//           data.foods.map((food) => (
+//             <li key={food.fdcId}>
+//               <Link href="/p/[id]" as={`/p/${food.fdcId}`}>
+//                 <a>
+//                   {food.fdcId} - {food.brandOwner}
+//                   <FoodDetails ingredients={food.ingredients} nutrients={food.foodNutrients}/>
+//                 </a>
+//               </Link>
+//             </li>
+//           ))}
+//       </ul>
+//     </Layout>
+//   );
+// };
+// //Only for reference
+// Index.getInitialProps = async () => {
+//   const URL = `https://api.nal.usda.gov/fdc/v1/foods/search?api_key=GiSVQi6vc4bkITDFpqevACfryGTKgtKeRaE6FR98&query=Cheddar%20Cheese`;
+//   const response = await fetch(URL);
+//   const data = await response.json();
+//   return {
+//     data: data,
+//   };
+// };
 
 
 /* harmony default export */ __webpack_exports__["default"] = (Index);
 
 /***/ }),
 
-/***/ 3:
+/***/ 4:
 /*!******************************!*\
   !*** multi ./pages/index.js ***!
   \******************************/
