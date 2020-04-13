@@ -88,7 +88,7 @@ module.exports =
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 4);
+/******/ 	return __webpack_require__(__webpack_require__.s = 3);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -147,6 +147,52 @@ const Display = props => {
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (Display);
+
+/***/ }),
+
+/***/ "./components/FoodSearchReducer.js":
+/*!*****************************************!*\
+  !*** ./components/FoodSearchReducer.js ***!
+  \*****************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+const FoodSearchReducer = (state, action) => {
+  const newState = _objectSpread({}, state);
+
+  switch (action.type) {
+    case "FETCH-DATA":
+      newState.data = action.value;
+      break;
+
+    case "INPUT-QUERY":
+      newState.inputQuery = action.value;
+      break;
+
+    case "IS-SEARCH":
+      newState.isSearch = action.value;
+      break;
+
+    case "SEARCH":
+      newState.isSearch = true;
+      break;
+
+    default:
+      new Error();
+  }
+
+  return newState;
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (FoodSearchReducer);
 
 /***/ }),
 
@@ -327,6 +373,17 @@ const NavBar = () => {
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (NavBar);
+
+/***/ }),
+
+/***/ "./myKeys.json":
+/*!*********************!*\
+  !*** ./myKeys.json ***!
+  \*********************/
+/*! exports provided: usda, default */
+/***/ (function(module) {
+
+module.exports = JSON.parse("{\"usda\":\"GiSVQi6vc4bkITDFpqevACfryGTKgtKeRaE6FR98\"}");
 
 /***/ }),
 
@@ -2021,6 +2078,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var isomorphic_unfetch__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(isomorphic_unfetch__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _components_InputSearch__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../components/InputSearch */ "./components/InputSearch.js");
 /* harmony import */ var _components_Display__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../components/Display */ "./components/Display.js");
+/* harmony import */ var _components_FoodSearchReducer__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../components/FoodSearchReducer */ "./components/FoodSearchReducer.js");
+/* harmony import */ var _myKeys_json__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../myKeys.json */ "./myKeys.json");
+var _myKeys_json__WEBPACK_IMPORTED_MODULE_6___namespace = /*#__PURE__*/__webpack_require__.t(/*! ../myKeys.json */ "./myKeys.json", 1);
 var _jsxFileName = "C:\\myReact-Redux\\21Menus\\21menus\\pages\\FoodSearch.js";
 
 var __jsx = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement;
@@ -2030,34 +2090,106 @@ var __jsx = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement;
 
 
 
+
+
 const FoodSearch = () => {
+  const initialState = {
+    data: "",
+    inputQuery: "",
+    isSearch: false
+  };
   const {
-    0: data,
-    1: setFetchData
-  } = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])("");
-  const {
-    0: inputQuery,
-    1: setInputQuery
-  } = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])("");
-  const {
-    0: isSearch,
-    1: setSearch
-  } = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(false);
+    0: state,
+    1: dispatch
+  } = Object(react__WEBPACK_IMPORTED_MODULE_0__["useReducer"])(_components_FoodSearchReducer__WEBPACK_IMPORTED_MODULE_5__["default"], initialState);
   Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(() => {
     const fetchData = async () => {
-      const searchURL = `https://api.nal.usda.gov/fdc/v1/foods/search?api_key=GiSVQi6vc4bkITDFpqevACfryGTKgtKeRaE6FR98&query=${inputQuery}`;
+      const searchURL = `https://api.nal.usda.gov/fdc/v1/foods/search?api_key=${_myKeys_json__WEBPACK_IMPORTED_MODULE_6__.usda}&query=${state.inputQuery}`;
       const resp = await isomorphic_unfetch__WEBPACK_IMPORTED_MODULE_2___default()(searchURL);
+      const jsonData = await resp.json();
+      dispatch({
+        type: "FETCH-DATA",
+        value: jsonData
+      });
+      dispatch({
+        type: "IS-SEARCH",
+        value: false
+      });
+    };
+
+    if (state.isSearch) {
+      fetchData();
+    }
+  }, [state.isSearch]);
+
+  const handleInput = event => {
+    dispatch({
+      type: "INPUT-QUERY",
+      value: event.target.value
+    });
+  };
+
+  const handleSearchButton = () => {
+    dispatch({
+      type: "SEARCH"
+    });
+  };
+
+  return __jsx(_components_Layout__WEBPACK_IMPORTED_MODULE_1__["default"], {
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 52,
+      columnNumber: 5
+    }
+  }, __jsx(_components_InputSearch__WEBPACK_IMPORTED_MODULE_3__["default"], {
+    inputQuery: state.inputQuery,
+    handleInput: handleInput,
+    handleSearchButton: handleSearchButton,
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 53,
+      columnNumber: 7
+    }
+  }), __jsx(_components_Display__WEBPACK_IMPORTED_MODULE_4__["default"], {
+    data: state.data,
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 58,
+      columnNumber: 7
+    }
+  }));
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (FoodSearch);
+/*
+import Layout from "../components/Layout";
+import fetch from "isomorphic-unfetch";
+import { useState, useEffect } from "react";
+import InputSearch from '../components/InputSearch';
+import Display from '../components/Display';
+
+const FoodSearch = () => {
+  const [data, setFetchData] = useState("");
+  const [inputQuery, setInputQuery] = useState("");
+  const [isSearch, setSearch] = useState(false);
+  useEffect(() => {
+    const fetchData = async () => {
+      const searchURL = `https://api.nal.usda.gov/fdc/v1/foods/search?api_key=GiSVQi6vc4bkITDFpqevACfryGTKgtKeRaE6FR98&query=${inputQuery}`;
+      const resp = await fetch(searchURL);
       const jsonData = await resp.json();
       setFetchData(jsonData);
       setSearch(false);
     };
-
+    
     if (isSearch) {
       fetchData();
     }
   }, [isSearch]);
 
-  const handleInput = event => {
+  const handleInput = (event) => {
     setInputQuery(event.target.value);
   };
 
@@ -2065,35 +2197,20 @@ const FoodSearch = () => {
     setSearch(true);
   };
 
-  return __jsx(_components_Layout__WEBPACK_IMPORTED_MODULE_1__["default"], {
-    __self: undefined,
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 34,
-      columnNumber: 5
-    }
-  }, __jsx(_components_InputSearch__WEBPACK_IMPORTED_MODULE_3__["default"], {
-    inputQuery: inputQuery,
-    handleInput: handleInput,
-    handleSearchButton: handleSearchButton,
-    __self: undefined,
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 35,
-      columnNumber: 7
-    }
-  }), __jsx(_components_Display__WEBPACK_IMPORTED_MODULE_4__["default"], {
-    data: data,
-    __self: undefined,
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 40,
-      columnNumber: 7
-    }
-  }));
+  return (
+    <Layout>
+      <InputSearch
+        inputQuery={inputQuery}
+        handleInput={handleInput}
+        handleSearchButton={handleSearchButton}
+      />
+      <Display data={data}/>
+    </Layout>
+  );
 };
 
-/* harmony default export */ __webpack_exports__["default"] = (FoodSearch);
+export default FoodSearch;
+*/
 
 /***/ }),
 
@@ -2194,7 +2311,7 @@ const Index = () => {
 
 /***/ }),
 
-/***/ 4:
+/***/ 3:
 /*!******************************!*\
   !*** multi ./pages/index.js ***!
   \******************************/

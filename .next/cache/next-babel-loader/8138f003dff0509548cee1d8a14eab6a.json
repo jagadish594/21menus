@@ -1,0 +1,1 @@
+{"ast":null,"code":"const FoodSearchReducer = () => {};","map":{"version":3,"sources":["C:/myReact-Redux/21Menus/21menus/components/FoodSearchReducer.js"],"names":["FoodSearchReducer"],"mappings":"AACA,MAAMA,iBAAiB,GAAG,MAAM,CAE/B,CAFD","sourcesContent":["\r\nconst FoodSearchReducer = () => {\r\n\r\n}"]},"metadata":{},"sourceType":"script"}

@@ -5,7 +5,6 @@ const FoodDetailsPage = (props) => {
   const router = useRouter();
   const fdcId = router.query.id;
   //const foods = props.data.filter(food => food.fdcId===fdcId);
-  console.log("props: ", props);
   return (
     <div>
     <h3>{fdcId}</h3>
@@ -22,4 +21,4 @@ const FoodDetailsPage = (props) => {
 };
   
 
-export default FoodDetails;
+export default FoodDetailsPage;
