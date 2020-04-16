@@ -21,20 +21,26 @@ var __jsx = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement;
 
 
 var Display = function Display(props) {
+  var foods = [];
+
+  if (props.data.foods) {
+    foods = props.data.foods;
+  }
+
   return __jsx("ul", {
     __self: _this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 5,
+      lineNumber: 9,
       columnNumber: 9
     }
-  }, props.data.foods && props.data.foods.map(function (food) {
+  }, foods ? foods.map(function (food) {
     return __jsx("li", {
       key: food.fdcId,
       __self: _this,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 7,
+        lineNumber: 11,
         columnNumber: 17
       }
     }, __jsx(next_link__WEBPACK_IMPORTED_MODULE_1___default.a, {
@@ -43,18 +49,18 @@ var Display = function Display(props) {
       __self: _this,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 8,
-        columnNumber: 17
+        lineNumber: 12,
+        columnNumber: 21
       }
     }, __jsx("a", {
       __self: _this,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 9,
-        columnNumber: 21
+        lineNumber: 13,
+        columnNumber: 25
       }
     }, food.fdcId, " - ", food.brandOwner)));
-  }));
+  }) : null);
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (Display);
@@ -4640,10 +4646,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var isomorphic_unfetch__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! isomorphic-unfetch */ "./node_modules/next/dist/build/polyfills/fetch/index.js");
 /* harmony import */ var isomorphic_unfetch__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(isomorphic_unfetch__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var _components_InputSearch__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../components/InputSearch */ "./components/InputSearch.js");
-/* harmony import */ var _components_Display__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../components/Display */ "./components/Display.js");
-/* harmony import */ var _components_FoodSearchReducer__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../components/FoodSearchReducer */ "./components/FoodSearchReducer.js");
-/* harmony import */ var _myKeys_json__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../myKeys.json */ "./myKeys.json");
-var _myKeys_json__WEBPACK_IMPORTED_MODULE_7___namespace = /*#__PURE__*/__webpack_require__.t(/*! ../myKeys.json */ "./myKeys.json", 1);
+/* harmony import */ var _components_FoodSearchReducer__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../components/FoodSearchReducer */ "./components/FoodSearchReducer.js");
+/* harmony import */ var _myKeys_json__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../myKeys.json */ "./myKeys.json");
+var _myKeys_json__WEBPACK_IMPORTED_MODULE_6___namespace = /*#__PURE__*/__webpack_require__.t(/*! ../myKeys.json */ "./myKeys.json", 1);
+/* harmony import */ var _components_Display__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../components/Display */ "./components/Display.js");
 
 
 var _this = undefined,
@@ -4659,14 +4665,14 @@ var __jsx = react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement;
 
 
 
-var FoodSearch = function FoodSearch() {
+var FoodSearch = function FoodSearch(props) {
   var initialState = {
     data: "",
     inputQuery: "",
     isSearch: false
   };
 
-  var _useReducer = Object(react__WEBPACK_IMPORTED_MODULE_1__["useReducer"])(_components_FoodSearchReducer__WEBPACK_IMPORTED_MODULE_6__["default"], initialState),
+  var _useReducer = Object(react__WEBPACK_IMPORTED_MODULE_1__["useReducer"])(_components_FoodSearchReducer__WEBPACK_IMPORTED_MODULE_5__["default"], initialState),
       state = _useReducer[0],
       dispatch = _useReducer[1];
 
@@ -4677,7 +4683,7 @@ var FoodSearch = function FoodSearch() {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
-              searchURL = "https://api.nal.usda.gov/fdc/v1/foods/search?api_key=".concat(_myKeys_json__WEBPACK_IMPORTED_MODULE_7__.usda, "&query=").concat(state.inputQuery);
+              searchURL = "https://api.nal.usda.gov/fdc/v1/foods/search?api_key=".concat(_myKeys_json__WEBPACK_IMPORTED_MODULE_6__.usda, "&query=").concat(state.inputQuery);
               _context.next = 3;
               return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(isomorphic_unfetch__WEBPACK_IMPORTED_MODULE_3___default()(searchURL));
 
@@ -4727,7 +4733,7 @@ var FoodSearch = function FoodSearch() {
     __self: _this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 52,
+      lineNumber: 55,
       columnNumber: 5
     }
   }, __jsx(_components_InputSearch__WEBPACK_IMPORTED_MODULE_4__["default"], {
@@ -4737,68 +4743,21 @@ var FoodSearch = function FoodSearch() {
     __self: _this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 53,
+      lineNumber: 56,
       columnNumber: 7
     }
-  }), __jsx(_components_Display__WEBPACK_IMPORTED_MODULE_5__["default"], {
+  }), __jsx(_components_Display__WEBPACK_IMPORTED_MODULE_7__["default"], {
     data: state.data,
     __self: _this,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 58,
+      lineNumber: 61,
       columnNumber: 7
     }
   }));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (FoodSearch);
-/*
-import Layout from "../components/Layout";
-import fetch from "isomorphic-unfetch";
-import { useState, useEffect } from "react";
-import InputSearch from '../components/InputSearch';
-import Display from '../components/Display';
-
-const FoodSearch = () => {
-  const [data, setFetchData] = useState("");
-  const [inputQuery, setInputQuery] = useState("");
-  const [isSearch, setSearch] = useState(false);
-  useEffect(() => {
-    const fetchData = async () => {
-      const searchURL = `https://api.nal.usda.gov/fdc/v1/foods/search?api_key=GiSVQi6vc4bkITDFpqevACfryGTKgtKeRaE6FR98&query=${inputQuery}`;
-      const resp = await fetch(searchURL);
-      const jsonData = await resp.json();
-      setFetchData(jsonData);
-      setSearch(false);
-    };
-    
-    if (isSearch) {
-      fetchData();
-    }
-  }, [isSearch]);
-
-  const handleInput = (event) => {
-    setInputQuery(event.target.value);
-  };
-
-  const handleSearchButton = () => {
-    setSearch(true);
-  };
-
-  return (
-    <Layout>
-      <InputSearch
-        inputQuery={inputQuery}
-        handleInput={handleInput}
-        handleSearchButton={handleSearchButton}
-      />
-      <Display data={data}/>
-    </Layout>
-  );
-};
-
-export default FoodSearch;
-*/
 
 /***/ }),
 
@@ -4837,65 +4796,7 @@ var Index = function Index() {
       columnNumber: 7
     }
   }));
-}; // import Layout from "../components/Layout";
-// import fetch from "isomorphic-unfetch";
-// import { useState, useEffect } from "react";
-// import Link from "next/link";
-// import FoodDetails from "./p/[id]";
-// const Index = (props) => {
-//   const { foods } = props.data; //Only  for reference
-//   console.log("foods: ", foods); //only for reference
-//   const [data, setFetchData] = useState("");
-//   //const {totalHits, currentPage, totalPages, foods} = props.data || "";
-//   const [inputQuery, setInputQuery] = useState("");
-//   const [isSearch, setSearch] = useState(false);
-//   useEffect(() => {
-//     const fetchData = async () => {
-//       const searchURL = `https://api.nal.usda.gov/fdc/v1/foods/search?api_key=GiSVQi6vc4bkITDFpqevACfryGTKgtKeRaE6FR98&query=${inputQuery}`;
-//       const resp = await fetch(searchURL);
-//       const jsonData = await resp.json();
-//       setFetchData(jsonData);
-//       setSearch(false);
-//     };
-//     if (isSearch) {
-//       fetchData();
-//     }
-//   }, [isSearch]);
-//   return (
-//     <Layout>
-//       <h1>Hello 21Menus</h1>
-//       <input
-//         type="text"
-//         value={inputQuery}
-//         onChange={(event) => setInputQuery(event.target.value)}
-//       />
-//       <button onClick={() => setSearch(true)}>Search</button>
-//       <ul>
-//         {data.foods &&
-//           data.foods.map((food) => (
-//             <li key={food.fdcId}>
-//               <Link href="/p/[id]" as={`/p/${food.fdcId}`}>
-//                 <a>
-//                   {food.fdcId} - {food.brandOwner}
-//                   <FoodDetails ingredients={food.ingredients} nutrients={food.foodNutrients}/>
-//                 </a>
-//               </Link>
-//             </li>
-//           ))}
-//       </ul>
-//     </Layout>
-//   );
-// };
-// //Only for reference
-// Index.getInitialProps = async () => {
-//   const URL = `https://api.nal.usda.gov/fdc/v1/foods/search?api_key=GiSVQi6vc4bkITDFpqevACfryGTKgtKeRaE6FR98&query=Cheddar%20Cheese`;
-//   const response = await fetch(URL);
-//   const data = await response.json();
-//   return {
-//     data: data,
-//   };
-// };
-
+};
 
 /* harmony default export */ __webpack_exports__["default"] = (Index);
 
